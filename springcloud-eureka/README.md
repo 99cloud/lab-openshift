@@ -41,3 +41,45 @@ $ curl http://localhost:8761/health
 | 更新元数据 | PUT /eureka/apps/**{appID}**/**{instanceID}**/metadata?key=value | 成功返回 200，失败返回 500 |
 | 根据 vip 地址查询 | GET /eureka/vips/**{vipAddress}** | 成功返回 200，输出 JSON 或 XML 格式 |
 | 根据 svip 地址查询 | GET /eureka/svips/**{svipAddress}** | 成功返回 200，输出 JSON 或 XML 格式 |
+
+## 实现 Eureka Server
+
+1. 添加 Eureka Server 依赖
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+    </dependency>
+</dependencies>
+```
+
+2. 编写启动类，在启动类添加 `@EnableEurekaServer` 注解，声明这是一个 Eureka Server
+
+    ```java
+    @SpringBootApplication
+    @EnableEurekaServer
+    public class EurekaApplication {
+        public static void main(String[] args) {
+            SpringApplication.run(EurekaApplication.class, args);
+        }
+    }
+    ```
+
+3. 在配置文件中添加
+
+    ```yaml
+    server:
+      port: 8761
+    eureka:
+      client:
+        registerWithEureka: false
+        fetchRegistry: false
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
+    ```
+
+    * eureka.client.registerWithEureka：是否将自己注册到 Eureka Server，由于当前应用就是 Eureka Server，设置为 false
+    * eureka.client.fetchRegistry：是否从 Eureka Server 获取注册信息，因为这是一个单点的 Eureka Server，不需要同步其他 Eureka Server 节点的数据，设置为 false
+    * eureka.client.serviceUrl.defaultZone：与 Eureka Server 交互的地址，查询和注册服务都需要，默认为 http://localhost:8761/eureka

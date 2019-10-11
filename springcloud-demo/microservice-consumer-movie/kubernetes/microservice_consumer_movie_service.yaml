@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: microservice-consumer-movie
+spec:
+  selector:
+    app: microservice-consumer-movie
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8010
+  type: ClusterIP

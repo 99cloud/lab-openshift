@@ -4,7 +4,7 @@ Feign 是 Netflix 开发的声明式、模板化的 HTTP 客户端，可以帮�
 
 github repo: [https://github.com/OpenFeign/feign](https://github.com/OpenFeign/feign)
 
-microservice-provider-user 是调用 microservice-provider-user 提供的 API 获得数据的 demo 应用程序
+microservice-provider-user 是调用 microservice-provider-user 提供的 API 获得数据的 demo 应用程序。
 
 构建 99cloud/microservice-consumer-movie 镜像：
 
