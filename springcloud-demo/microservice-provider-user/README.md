@@ -1,6 +1,6 @@
 # microservice-provider-user
 
-microservice-provider-user 是用户微服务注册到 Eureka 上的 demo
+microservice-provider-user 是用户微服务注册到 Eureka 上的 demo 应用程序
 
 构建 99cloud/microservice-provider-user 镜像：
 
