@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-consumer-movie-deployment
+  labels:
+    app: microservice-consumer-movie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microservice-consumer-movie
+  template:
+    metadata:
+      labels:
+        app: microservice-consumer-movie
+    spec:
+      containers:
+      - name: microservice-consumer-movie
+        image: 99cloud/microservice-consumer-movie:latest
+        ports:
+        - containerPort: 8010
+          protocol: TCP
+        volumeMounts:
+        - name: microservice-consumer-movie-config
+          mountPath: /etc/microservice-consumer-movie/application.yml
+          subPath: application.yml
+      volumes:
+      - name: microservice-consumer-movie-config
+        configMap:
+          name: microservice-consumer-movie-configmap
+          items:
+          - key: application.yml
+            path: application.yml
+      restartPolicy: Always
